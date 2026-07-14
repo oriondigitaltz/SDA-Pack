@@ -88,7 +88,6 @@ class StudyDay {
 class StudyDayRead {
   final String title;
   final String date;
-  final String bible;
 
   /// Sanitized HTML content of the day's reading.
   final String content;
@@ -96,15 +95,15 @@ class StudyDayRead {
   const StudyDayRead({
     required this.title,
     required this.date,
-    required this.bible,
     required this.content,
   });
 
   factory StudyDayRead.fromJson(Map<String, dynamic> json) {
+    // Note: the response also carries `bible` (a list of verse-text maps),
+    // which is intentionally not mapped.
     return StudyDayRead(
       title: json['title'] as String? ?? '',
       date: json['date'] as String? ?? '',
-      bible: json['bible'] as String? ?? '',
       content: json['content'] as String? ?? '',
     );
   }
