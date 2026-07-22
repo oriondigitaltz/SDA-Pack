@@ -1,0 +1,21 @@
+default.sf2 (TimGM6mb.sf2)
+
+Copyright 2004 Tim Brechbill <https://www.timbrechbill.com>
+Copyright 2010 David Bolton <davidkbolton@gmail.com>
+
+Source: Debian/Ubuntu package "timgm6mb-soundfont"
+(https://github.com/musescore/musescore-old/commit/90c33ef9d87b3f5ff92efd3b07d89eb455fb1fef)
+
+Licensed under the GNU General Public License version 2 (GPL-2.0-only).
+Full license text: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+Per the author: "I created some of the samples myself and all others
+are either public domain or fall under the terms of the GNU General
+Public License."
+
+NOTE: Bundling a GPL-2 licensed data asset into an otherwise
+closed-source app has real licensing implications for commercial /
+closed-source distribution. Review this before shipping SDA Pack to
+an app store. Consider swapping this file for a more permissively
+licensed General MIDI soundfont (e.g. MIT/CC0) before release if that
+is a concern.

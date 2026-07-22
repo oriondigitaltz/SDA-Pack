@@ -30,6 +30,7 @@ dependencies:
   http: ^1.2.2
   flutter_widget_from_html_core: ^0.15.2
   flutter_svg: ^2.0.10
+  flutter_midi_pro: ^4.0.4
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +47,8 @@ flutter:
   assets:
     - assets/hymnals/en/
     - assets/hymnals/sw/
+    - assets/hymnals/sw/midi/
+    - assets/soundfonts/
     - assets/branding/
     - assets/bible/
     - assets/devotions/
