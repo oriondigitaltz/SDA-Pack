@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/belief.dart';
 import '../providers/content_providers.dart';
+import '../widgets/app_header_actions.dart';
+import '../widgets/app_side_drawer.dart';
+import '../widgets/home_button.dart';
 import 'belief_detail_screen.dart';
 
 class BeliefsScreen extends ConsumerWidget {
@@ -14,9 +17,13 @@ class BeliefsScreen extends ConsumerWidget {
     final viewed = ref.watch(viewedBeliefsProvider);
 
     return Scaffold(
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
         title: const Text('SDA Beliefs', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 22)),
+        actions: const [AppHeaderActions()],
       ),
+      drawer: const AppSideDrawer(),
       body: beliefsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, _) => Center(child: Text('Failed to load beliefs: $err')),

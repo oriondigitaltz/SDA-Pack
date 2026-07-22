@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/content_providers.dart';
 import '../theme/app_theme.dart';
+import '../widgets/app_header_actions.dart';
+import '../widgets/app_side_drawer.dart';
+import '../widgets/home_button.dart';
 import 'devotion_screen.dart';
 
 const _kMonths = [
@@ -47,10 +50,14 @@ class _DevotionCalendarScreenState extends ConsumerState<DevotionCalendarScreen>
       ..addAll(repo.cachedDaysInMonth(_year, _month));
 
     return Scaffold(
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
         title: const Text('Devotion Calendar',
             style: TextStyle(fontWeight: FontWeight.w800, fontSize: 22)),
+        actions: const [AppHeaderActions()],
       ),
+      drawer: const AppSideDrawer(),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
         children: [

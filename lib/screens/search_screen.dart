@@ -6,6 +6,7 @@ import '../models/hymn.dart';
 import '../models/hymnal.dart';
 import '../providers/hymnal_providers.dart';
 import '../widgets/app_side_drawer.dart';
+import '../widgets/home_button.dart';
 import '../widgets/search_field.dart';
 import 'bible_verse_screen.dart';
 import 'hymn_detail_screen.dart';
@@ -22,6 +23,8 @@ class SearchScreen extends ConsumerWidget {
     final scope = ref.watch(searchScopeProvider);
 
     return Scaffold(
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(title: const Text('Search', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 24))),
       drawer: const AppSideDrawer(),
       body: Column(

@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/hymn.dart';
 import '../models/hymnal.dart';
 import '../providers/hymnal_providers.dart';
+import '../widgets/app_header_actions.dart';
 import '../widgets/fast_scrollbar.dart';
+import '../widgets/home_button.dart';
 import '../widgets/hymn_list_tile.dart';
 import '../widgets/search_field.dart';
 import 'hymn_detail_screen.dart';
@@ -41,7 +43,12 @@ class _HymnListScreenState extends ConsumerState<HymnListScreen> {
     final title = widget.title ?? widget.hymnal?.displayName ?? '';
 
     return Scaffold(
-      appBar: AppBar(title: Text(title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18))),
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      appBar: AppBar(
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18)),
+        actions: const [AppHeaderActions()],
+      ),
       body: Column(
         children: [
           Padding(

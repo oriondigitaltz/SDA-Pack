@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/content_providers.dart';
+import '../widgets/app_header_actions.dart';
+import '../widgets/home_button.dart';
 import 'home_screen.dart' show RecentDevotionCard;
 
 /// Every devotion the app has pulled from the online feed, newest first.
@@ -24,9 +26,12 @@ class _PastStudiesScreenState extends ConsumerState<PastStudiesScreen> {
         : all;
 
     return Scaffold(
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
         title: const Text('Past Studies',
             style: TextStyle(fontWeight: FontWeight.w800, fontSize: 22)),
+        actions: const [AppHeaderActions()],
       ),
       body: Column(
         children: [

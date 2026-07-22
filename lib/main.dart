@@ -9,6 +9,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'app.dart';
 import 'data/beliefs_repository.dart';
+import 'data/bible_highlights_repository.dart';
 import 'data/bible_repository.dart';
 import 'data/collections_repository.dart';
 import 'data/devotion_repository.dart';
@@ -41,6 +42,7 @@ Future<void> main() async {
   final collectionsRepository = await CollectionsRepository.open(legacyFavorites: legacyFavorites);
   final notesRepository = await NotesRepository.open();
   final bibleRepository = await BibleRepository.open();
+  final bibleHighlightsRepository = await BibleHighlightsRepository.open();
   final devotionRepository = await DevotionRepository.open();
   final beliefsRepository = await BeliefsRepository.open();
   final studyGuideRepository = await StudyGuideRepository.open();
@@ -62,6 +64,7 @@ Future<void> main() async {
       collectionsRepositoryProvider.overrideWithValue(collectionsRepository),
       notesRepositoryProvider.overrideWithValue(notesRepository),
       bibleRepositoryProvider.overrideWithValue(bibleRepository),
+      bibleHighlightsRepositoryProvider.overrideWithValue(bibleHighlightsRepository),
       devotionRepositoryProvider.overrideWithValue(devotionRepository),
       beliefsRepositoryProvider.overrideWithValue(beliefsRepository),
       studyGuideRepositoryProvider.overrideWithValue(studyGuideRepository),

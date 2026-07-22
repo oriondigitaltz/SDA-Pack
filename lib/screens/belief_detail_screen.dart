@@ -5,6 +5,8 @@ import '../data/scripture_ref.dart';
 import '../models/belief.dart';
 import '../providers/content_providers.dart';
 import '../providers/hymnal_providers.dart';
+import '../widgets/app_header_actions.dart';
+import '../widgets/home_button.dart';
 import 'bible_verse_screen.dart';
 
 class BeliefDetailScreen extends ConsumerStatefulWidget {
@@ -40,6 +42,8 @@ class _BeliefDetailScreenState extends ConsumerState<BeliefDetailScreen> {
     final softColor = Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.65);
 
     return Scaffold(
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
         title: Text('Belief ${belief.number} of ${widget.beliefs.length}',
             style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 20)),
@@ -52,6 +56,7 @@ class _BeliefDetailScreenState extends ConsumerState<BeliefDetailScreen> {
             onPressed: () => ref.read(fontScaleProvider.notifier).increase(),
             icon: const Icon(Icons.text_increase_rounded),
           ),
+          const AppHeaderActions(),
         ],
       ),
       body: ListView(

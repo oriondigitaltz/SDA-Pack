@@ -6,6 +6,9 @@ import '../providers/content_providers.dart';
 import '../providers/hymnal_providers.dart';
 import '../services/notification_service.dart';
 import '../theme/app_theme.dart';
+import '../widgets/app_header_actions.dart';
+import '../widgets/app_side_drawer.dart';
+import '../widgets/home_button.dart';
 
 const _kDayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -76,10 +79,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.6);
 
     return Scaffold(
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
         title: const Text('Settings',
             style: TextStyle(fontWeight: FontWeight.w800, fontSize: 22)),
+        actions: const [AppHeaderActions()],
       ),
+      drawer: const AppSideDrawer(),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 28),
         children: [

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../models/hymnal.dart';
+import '../widgets/app_header_actions.dart';
 import '../widgets/app_side_drawer.dart';
+import '../widgets/home_button.dart';
 import 'hymn_list_screen.dart';
 
 const _kSwatches = [
@@ -22,7 +24,12 @@ class SongsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Songs', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 24))),
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      appBar: AppBar(
+        title: const Text('Songs', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 24)),
+        actions: const [AppHeaderActions()],
+      ),
       drawer: const AppSideDrawer(),
       body: ListView.separated(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),

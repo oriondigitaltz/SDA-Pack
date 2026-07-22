@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/study_guide.dart';
 import '../providers/study_guide_providers.dart';
 import '../theme/app_theme.dart';
+import '../widgets/app_header_actions.dart';
+import '../widgets/home_button.dart';
 import 'study_guide_reading_screen.dart';
 
 class StudyGuideLessonsScreen extends ConsumerWidget {
@@ -18,6 +20,8 @@ class StudyGuideLessonsScreen extends ConsumerWidget {
         Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.6);
 
     return Scaffold(
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
         title: Text(
           quarterly.title,
@@ -25,6 +29,7 @@ class StudyGuideLessonsScreen extends ConsumerWidget {
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 19),
         ),
+        actions: const [AppHeaderActions()],
       ),
       body: lessonsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),

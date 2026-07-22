@@ -4,6 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/study_guide.dart';
 import '../providers/study_guide_providers.dart';
 import '../theme/app_theme.dart';
+import '../widgets/app_header_actions.dart';
+import '../widgets/app_side_drawer.dart';
+import '../widgets/home_button.dart';
 import 'study_guide_lessons_screen.dart';
 
 /// Sabbath School quarterly study guides in Kiswahili and English.
@@ -16,10 +19,14 @@ class StudyGuidesScreen extends ConsumerWidget {
     final quarterliesAsync = ref.watch(studyQuarterliesProvider);
 
     return Scaffold(
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
         title: const Text('Study Guides',
             style: TextStyle(fontWeight: FontWeight.w800, fontSize: 22)),
+        actions: const [AppHeaderActions()],
       ),
+      drawer: const AppSideDrawer(),
       body: Column(
         children: [
           Padding(

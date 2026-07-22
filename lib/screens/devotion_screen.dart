@@ -4,6 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/devotion.dart';
 import '../providers/content_providers.dart';
 import '../providers/hymnal_providers.dart';
+import '../widgets/app_header_actions.dart';
+import '../widgets/app_side_drawer.dart';
+import '../widgets/home_button.dart';
 import 'bible_verse_screen.dart';
 import 'settings_screen.dart';
 
@@ -53,6 +56,8 @@ class _DevotionScreenState extends ConsumerState<DevotionScreen> {
     final fontScale = ref.watch(fontScaleProvider);
 
     return Scaffold(
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
         title: const Text('Morning Devotion', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 22)),
         actions: [
@@ -71,8 +76,10 @@ class _DevotionScreenState extends ConsumerState<DevotionScreen> {
               MaterialPageRoute(builder: (context) => const SettingsScreen()),
             ),
           ),
+          const AppHeaderActions(),
         ],
       ),
+      drawer: const AppSideDrawer(),
       body: devotionAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, _) => Center(child: Text('Failed to load devotion: $err')),

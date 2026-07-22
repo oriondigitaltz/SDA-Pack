@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../theme/app_theme.dart';
-import 'main_shell.dart';
+import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
           transitionDuration: const Duration(milliseconds: 400),
-          pageBuilder: (context, animation, _) => const MainShell(),
+          pageBuilder: (context, animation, _) => const HomeScreen(),
           transitionsBuilder: (context, animation, _, child) => FadeTransition(
             opacity: animation,
             child: child,
@@ -55,21 +55,23 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           opacity: _fade,
           child: SlideTransition(
             position: _slide,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SvgPicture.asset(
-                  'assets/branding/splash_logo.svg',
-                  width: 300,
-                  height: 300,
-                  fit: BoxFit.contain,
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  'Bible · Songs · Devotion · Beliefs',
-                  style: TextStyle(fontSize: 14, color: AppColors.inkSoft, fontWeight: FontWeight.w600),
-                ),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(
+                    'assets/branding/splash_logo.svg',
+                    width: double.infinity,
+                    fit: BoxFit.contain,
+                  ),
+                  const SizedBox(height: 12),
+                  const Text(
+                    'Bible · Songs · Devotion · Beliefs',
+                    style: TextStyle(fontSize: 14, color: AppColors.inkSoft, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

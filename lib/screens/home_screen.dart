@@ -5,13 +5,16 @@ import '../models/devotion.dart';
 import '../providers/content_providers.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_side_drawer.dart';
+import '../widgets/home_button.dart';
 import 'beliefs_screen.dart';
+import 'bible_books_screen.dart';
 import 'collections_screen.dart';
 import 'devotion_calendar_screen.dart';
 import 'devotion_screen.dart';
-import 'main_shell.dart';
 import 'past_studies_screen.dart';
+import 'search_screen.dart';
 import 'settings_screen.dart';
+import 'songs_screen.dart';
 import 'study_guides_screen.dart';
 
 const _kMonths = [
@@ -26,6 +29,8 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       drawer: const AppSideDrawer(),
       body: SafeArea(
         child: ListView(
@@ -44,7 +49,23 @@ class HomeScreen extends ConsumerWidget {
               childAspectRatio: 1.25,
               children: [
                 _CategoryTile(
-                  title: 'Devotions',
+                  title: 'Bible',
+                  subtitle: 'English & Kiswahili',
+                  icon: Icons.book_rounded,
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const BibleBooksScreen()),
+                  ),
+                ),
+                _CategoryTile(
+                  title: 'Songs',
+                  subtitle: 'Hymns & worship',
+                  icon: Icons.music_note_rounded,
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const SongsScreen()),
+                  ),
+                ),
+                _CategoryTile(
+                  title: 'Devotion',
                   subtitle: 'Daily studies',
                   icon: Icons.menu_book_rounded,
                   onTap: () => Navigator.of(context).push(
@@ -52,21 +73,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
                 _CategoryTile(
-                  title: 'Bible Songs',
-                  subtitle: 'Hymns & worship',
-                  icon: Icons.music_note_rounded,
-                  onTap: () => ref.read(mainTabIndexProvider.notifier).state = 1,
-                ),
-                _CategoryTile(
-                  title: 'My Favorites',
-                  subtitle: 'Saved for you',
-                  icon: Icons.favorite_rounded,
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const CollectionsScreen()),
-                  ),
-                ),
-                _CategoryTile(
-                  title: 'Study Guides',
+                  title: 'Study Guide',
                   subtitle: 'Kiswahili & English',
                   icon: Icons.auto_stories_rounded,
                   onTap: () => Navigator.of(context).push(
@@ -74,17 +81,19 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
                 _CategoryTile(
-                  title: 'Bible',
-                  subtitle: 'English & Kiswahili',
-                  icon: Icons.book_rounded,
-                  onTap: () => ref.read(mainTabIndexProvider.notifier).state = 2,
-                ),
-                _CategoryTile(
-                  title: 'SDA Beliefs',
+                  title: 'SDA Believe',
                   subtitle: '28 Fundamentals',
                   icon: Icons.church_rounded,
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const BeliefsScreen()),
+                  ),
+                ),
+                _CategoryTile(
+                  title: 'Favorites',
+                  subtitle: 'Saved for you',
+                  icon: Icons.favorite_rounded,
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const CollectionsScreen()),
                   ),
                 ),
                 _CategoryTile(
@@ -167,9 +176,9 @@ class _GreetingHeader extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         _RoundIconButton(
-          icon: Icons.notifications_none_rounded,
+          icon: Icons.search_rounded,
           onTap: () => Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const SettingsScreen()),
+            MaterialPageRoute(builder: (context) => const SearchScreen()),
           ),
         ),
       ],

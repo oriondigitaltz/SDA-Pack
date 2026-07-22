@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../models/bible.dart';
+import '../widgets/app_header_actions.dart';
+import '../widgets/home_button.dart';
 import 'bible_verse_screen.dart';
 
 class BibleChapterScreen extends StatelessWidget {
@@ -11,7 +13,12 @@ class BibleChapterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(book.title, style: const TextStyle(fontWeight: FontWeight.w700))),
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      appBar: AppBar(
+        title: Text(book.title, style: const TextStyle(fontWeight: FontWeight.w700)),
+        actions: const [AppHeaderActions()],
+      ),
       body: GridView.builder(
         padding: const EdgeInsets.all(16),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

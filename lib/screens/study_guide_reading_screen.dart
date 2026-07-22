@@ -6,6 +6,8 @@ import '../models/study_guide.dart';
 import '../providers/hymnal_providers.dart';
 import '../providers/study_guide_providers.dart';
 import '../theme/app_theme.dart';
+import '../widgets/app_header_actions.dart';
+import '../widgets/home_button.dart';
 
 class StudyGuideReadingScreen extends ConsumerStatefulWidget {
   final StudyLesson lesson;
@@ -25,6 +27,8 @@ class _StudyGuideReadingScreenState extends ConsumerState<StudyGuideReadingScree
     final daysAsync = ref.watch(studyDaysProvider(widget.lesson.path));
 
     return Scaffold(
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       appBar: AppBar(
         title: Text(
           widget.lesson.title,
@@ -32,6 +36,7 @@ class _StudyGuideReadingScreenState extends ConsumerState<StudyGuideReadingScree
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 19),
         ),
+        actions: const [AppHeaderActions()],
       ),
       body: daysAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),

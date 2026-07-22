@@ -5,8 +5,9 @@ import '../data/hymn_repository.dart';
 import '../models/collection.dart';
 import '../models/hymn.dart';
 import '../providers/hymnal_providers.dart';
-import '../theme/app_theme.dart';
+import '../widgets/app_header_actions.dart';
 import '../widgets/app_side_drawer.dart';
+import '../widgets/home_button.dart';
 import 'hymn_list_screen.dart';
 
 class CollectionsScreen extends ConsumerWidget {
@@ -39,52 +40,46 @@ class CollectionsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Theme(
-      data: AppTheme.dark(),
-      child: Builder(
-        builder: (context) {
-          final collections = ref.watch(collectionsProvider);
-          final hymnRepo = ref.watch(hymnRepositoryProvider);
+    final collections = ref.watch(collectionsProvider);
+    final hymnRepo = ref.watch(hymnRepositoryProvider);
 
-          return Scaffold(
-            backgroundColor: AppColors.darkGreen,
-            drawer: const AppSideDrawer(),
-            appBar: AppBar(
-              title: const Text('Collections', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 24)),
-              actions: [
-                IconButton(
-                  onPressed: () => _createCollection(context, ref),
-                  icon: const Icon(Icons.add_rounded),
-                ),
-              ],
-            ),
-            body: collections.isEmpty
-                ? const Center(child: Text('No collections yet', style: TextStyle(color: Colors.white70)))
-                : ListView.separated(
-                    padding: const EdgeInsets.all(16),
-                    itemCount: collections.length,
-                    separatorBuilder: (context, index) => const SizedBox(height: 12),
-                    itemBuilder: (context, index) {
-                      final collection = collections[index];
-                      return _CollectionCard(
-                        collection: collection,
-                        onTap: () {
-                          final hymns = _resolveHymns(hymnRepo, collection.hymnIds);
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => HymnListScreen(fixedHymns: hymns, title: collection.name),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-          );
-        },
+    return Scaffold(
+      floatingActionButton: const HomeButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      drawer: const AppSideDrawer(),
+      appBar: AppBar(
+        title: const Text('Collections', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 24)),
+        actions: [
+          IconButton(
+            onPressed: () => _createCollection(context, ref),
+            icon: const Icon(Icons.add_rounded),
+          ),
+          const AppHeaderActions(),
+        ],
       ),
+      body: collections.isEmpty
+          ? const Center(child: Text('No collections yet'))
+          : ListView.separated(
+              padding: const EdgeInsets.all(16),
+              itemCount: collections.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 12),
+              itemBuilder: (context, index) {
+                final collection = collections[index];
+                return _CollectionCard(
+                  collection: collection,
+                  onTap: () {
+                    final hymns = _resolveHymns(hymnRepo, collection.hymnIds);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => HymnListScreen(fixedHymns: hymns, title: collection.name),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
     );
   }
-
 }
 
 List<Hymn> _resolveHymns(HymnRepository hymnRepo, List<String> hymnIds) {
@@ -114,11 +109,11 @@ class _CollectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: AppColors.darkGreenCard,
-      borderRadius: BorderRadius.circular(18),
+    final softColor = Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.6);
+
+    return Card(
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
-        borderRadius: BorderRadius.circular(18),
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(18),
@@ -130,19 +125,19 @@ class _CollectionCard extends StatelessWidget {
                   children: [
                     Text(
                       collection.name,
-                      style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w700),
+                      style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       '${collection.hymnIds.length} Hymns',
-                      style: const TextStyle(color: Colors.white70, fontSize: 13),
+                      style: TextStyle(color: softColor, fontSize: 13),
                     ),
                   ],
                 ),
               ),
               Text(
                 _relativeTime(collection.updatedAt),
-                style: const TextStyle(color: Colors.white54, fontSize: 12),
+                style: TextStyle(color: softColor, fontSize: 12),
               ),
             ],
           ),

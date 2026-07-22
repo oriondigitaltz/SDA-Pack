@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../data/bible_highlights_repository.dart';
 import '../data/bible_repository.dart';
 import '../data/collections_repository.dart';
 import '../data/hymn_repository.dart';
@@ -23,6 +24,10 @@ final notesRepositoryProvider = Provider<NotesRepository>((ref) {
 });
 
 final bibleRepositoryProvider = Provider<BibleRepository>((ref) {
+  throw UnimplementedError('Overridden in main() after Hive init');
+});
+
+final bibleHighlightsRepositoryProvider = Provider<BibleHighlightsRepository>((ref) {
   throw UnimplementedError('Overridden in main() after Hive init');
 });
 
@@ -177,6 +182,40 @@ class HymnNoteNotifier extends StateNotifier<String?> {
 final hymnNoteProvider =
     StateNotifierProvider.family<HymnNoteNotifier, String?, String>((ref, hymnId) {
   return HymnNoteNotifier(ref.watch(notesRepositoryProvider), hymnId);
+});
+
+/// Preset colors offered by the verse highlight picker (hex ARGB strings).
+const List<Color> kBibleHighlightColors = [
+  Color(0xFFFFF59D), // yellow
+  Color(0xFFA5D6A7), // green
+  Color(0xFF90CAF9), // blue
+  Color(0xFFF48FB1), // pink
+  Color(0xFFFFCC80), // orange
+];
+
+class VerseHighlightNotifier extends StateNotifier<Color?> {
+  final BibleHighlightsRepository _repo;
+  final String key;
+
+  VerseHighlightNotifier(this._repo, this.key) : super(_fromHex(_repo.get(key)));
+
+  static Color? _fromHex(String? hex) => hex == null ? null : Color(int.parse(hex, radix: 16));
+
+  Future<void> setColor(Color color) async {
+    final hex = color.toARGB32().toRadixString(16).padLeft(8, '0');
+    await _repo.set(key, hex);
+    state = color;
+  }
+
+  Future<void> clear() async {
+    await _repo.clear(key);
+    state = null;
+  }
+}
+
+final verseHighlightProvider =
+    StateNotifierProvider.family<VerseHighlightNotifier, Color?, String>((ref, key) {
+  return VerseHighlightNotifier(ref.watch(bibleHighlightsRepositoryProvider), key);
 });
 
 final bibleSearchQueryProvider = StateProvider<String>((ref) => '');
